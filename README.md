@@ -23,7 +23,7 @@
   </a> -->
  
 </div>
-<img src="https://record.gewang.wiki/entry/1/" onError="this.style.display = 'none';" alt=""/>
+<img src="https://flask-bark.vercel.app/g" onError="this.style.display = 'none';" alt=""/>
 
 ![](https://dcbadge.vercel.app/api/shield/289092686944796688) 
 
