@@ -21,9 +21,11 @@
   <a href="https://github.com/Astr0-G">
     <img src="https://github.com/Astr0-G/Astr0-G/assets/57165451/3e8a5470-8ebf-4b81-9a60-9f7b9b8e0913" width="auto" height="130" alt="Astr0-G profile picture" style="vertical-align: top; margin-left: 15px"     />
   </a> -->
+
  
 </div>
 <img src="https://flask-bark.vercel.app/g" onError="this.style.display = 'none';" alt=""/>
 
-![](https://dcbadge.vercel.app/api/shield/289092686944796688) 
 
+![](https://dcbadge.vercel.app/api/shield/289092686944796688)
+<img src="https://github.com/astr0-g/Astr0-G/assets/57165451/bdd63a41-fd4d-4807-97ff-7e9b23610b20" width="500" height="auto" onError="this.style.display = 'none';" alt=""/>
