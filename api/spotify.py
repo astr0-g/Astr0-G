@@ -22,9 +22,7 @@ FALLBACK_THEME = "spotify.html.j2"
 
 REFRESH_TOKEN_URL = "https://accounts.spotify.com/api/token"
 NOW_PLAYING_URL = "https://api.spotify.com/v1/me/player/currently-playing"
-RECENTLY_PLAYING_URL = (
-    "https://api.spotify.com/v1/me/player/recently-played?limit=10"
-)
+RECENTLY_PLAYING_URL = "https://api.spotify.com/v1/me/player/recently-played?limit=10"
 
 app = Flask(__name__)
 
@@ -42,8 +40,7 @@ def refreshToken():
     }
 
     headers = {"Authorization": "Basic {}".format(getAuth())}
-    response = requests.post(
-        REFRESH_TOKEN_URL, data=data, headers=headers).json()
+    response = requests.post(REFRESH_TOKEN_URL, data=data, headers=headers).json()
 
     try:
         return response["access_token"]
@@ -56,20 +53,21 @@ def refreshToken():
 def get(url):
     global SPOTIFY_TOKEN
 
-    if (SPOTIFY_TOKEN == ""):
+    if SPOTIFY_TOKEN == "":
         SPOTIFY_TOKEN = refreshToken()
 
-    response = requests.get(
-        url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"})
+    response = requests.get(url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"})
 
     if response.status_code == 401:
         SPOTIFY_TOKEN = refreshToken()
         response = requests.get(
-            url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"}).json()
+            url, headers={"Authorization": f"Bearer {SPOTIFY_TOKEN}"}
+        ).json()
         return response
     elif response.status_code == 204:
         raise Exception(f"{url} returned no data.")
     else:
+        print(response.text)
         return response.json()
 
 
@@ -80,13 +78,11 @@ def barGen(barCount):
         anim = random.randint(500, 1000)
         # below code generates random cubic-bezier values
         x1 = random.random()
-        y1 = random.random()*2
+        y1 = random.random() * 2
         x2 = random.random()
-        y2 = random.random()*2
-        barCSS += (
-            ".bar:nth-child({})  {{ left: {}px; animation-duration: 15s, {}ms; animation-timing-function: ease, cubic-bezier({},{},{},{}); }}".format(
-                i, left, anim, x1, y1, x2, y2
-            )
+        y2 = random.random() * 2
+        barCSS += ".bar:nth-child({})  {{ left: {}px; animation-duration: 15s, {}ms; animation-timing-function: ease, cubic-bezier({},{},{},{}); }}".format(
+            i, left, anim, x1, y1, x2, y2
         )
         left += 4
     return barCSS
@@ -143,7 +139,7 @@ def makeSVG(data, background_color, border_color):
         "image": image,
         "status": currentStatus,
         "background_color": background_color,
-        "border_color": border_color
+        "border_color": border_color,
     }
 
     return render_template(getTemplate(), **dataDict)
@@ -151,10 +147,10 @@ def makeSVG(data, background_color, border_color):
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-@app.route('/with_parameters')
+@app.route("/with_parameters")
 def catch_all(path):
-    background_color = request.args.get('background_color') or "181414"
-    border_color = request.args.get('border_color') or "181414"
+    background_color = request.args.get("background_color") or "181414"
+    border_color = request.args.get("border_color") or "181414"
 
     try:
         data = get(NOW_PLAYING_URL)
